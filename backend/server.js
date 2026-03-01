@@ -10,7 +10,9 @@ connectDB(); //calling database connection
 const app=express();
 const protect = require("./middleware/authMiddleware");
 //middleware, auth routes, todo, notes
-app.use(cors());
+app.use(cors({
+    origin: "https://notes-todo.vercel.app"
+}));
 app.use(express.json());
 app.use("/api/auth",authRoutes);
 app.use("/api/todos", todoRoutes);
