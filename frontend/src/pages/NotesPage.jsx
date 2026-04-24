@@ -81,6 +81,20 @@ function NotesPage() {
     setSelectedNote(null);
   };
 
+  //summarize button fuction
+const summarizeNote = async (noteText)=>{
+  try {
+    const res = await API.post('/ai/summarize',{
+      text: noteText
+    });
+    const data = res.data;
+    alert("Summary: " + data.summary);
+  } 
+  catch (error){
+    console.error("Error summarizing note:", error);
+  }
+};
+
   return(
     <div className="max-w-6xl mx-auto p-6">
       {/* <h2 className="text-2xl font-bold mb-4">
@@ -147,6 +161,9 @@ function NotesPage() {
 
             {/* Auto save indicator */}
             <div className="flex justify-between">
+              <button onClick={() => summarizeNote(selectedNote.content)}>
+                Summarize with AI
+              </button>
               <button
                 onClick={() => deleteNote(selectedNote._id)}
                 className="text-red-600">
